@@ -3,9 +3,11 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const c = require('./const');
-const sourceDir = path.join(__dirname, './app');
-const entryPath = path.join(sourceDir, './js/index.js');
+const sourceDir = path.join(__dirname, '/src');
+console.log('ПУТИ', path.join(sourceDir, '/index.tsx'));
+const entryPath = path.join(sourceDir, '/index.tsx');
 
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 8000;
@@ -13,7 +15,7 @@ const port = process.env.PORT || 8000;
 
 const baseCssLoader = [
     {
-        loader:  MiniCssExtractPlugin.loader,
+        loader: MiniCssExtractPlugin.loader,
         options: {
             // you can specify a publicPath here
             // by default it uses publicPath in webpackOptions.output
@@ -21,34 +23,32 @@ const baseCssLoader = [
         },
     },
     {
-        loader:  'css-loader',
+        loader: 'css-loader',
         options: {
             importLoaders: 1,
-            context:       sourceDir,
         },
     },
 ];
 
 module.exports = require('./webpack.config.base')({
     mode: 'development',
-
     entry: {
         main: [
             // activate HMR for React
             'react-hot-loader/patch',
             // the entry point of our app
-            entryPath,
+            entryPath
         ],
     },
 
     // devtool: 'source-map',
     output: {
-        filename:      '[name].js',
+        filename: '[name].js',
         chunkFilename: '[name].js',
     },
 
     optimization: {
-        namedModules:   true,
+        namedModules: true,
         noEmitOnErrors: true,
     },
 
@@ -56,47 +56,48 @@ module.exports = require('./webpack.config.base')({
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename:      '[name].css',
+            filename: '[name].css',
             chunkFilename: '[id].css',
         }),
         new HtmlWebpackPlugin({
-            inject:        true,
-            chunks:        ['main'],
-            filename:      'index.html',
+            inject: true,
+            chunks: ['main'],
+            filename: 'index.html',
             chunkSortMode: 'none',
-            template:      c.mainHtml,
+            template: c.mainHtml,
         }),
-        new HtmlWebpackPlugin({
-            inject:        true,
-            chunks:        ['login'],
-            chunkSortMode: 'none',
-            filename:      'login.html',
-            template:      c.loginHtml,
-        }),
+        /* new HtmlWebpackPlugin({
+             inject: true,
+             chunks: ['login'],
+             chunkSortMode: 'none',
+             filename: 'login.html',
+             template: c.loginHtml,
+         }),*/
 
         new webpack.HotModuleReplacementPlugin(),
+        new ForkTsCheckerWebpackPlugin(),
     ],
     module: {
         rules: [
             {
                 test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-                use:  {
+                use: {
                     loader: 'file-loader',
-                    query:  {
+                    query: {
                         name: 'static/[name].[ext]',
                     },
                 },
             },
             {
                 test: /\.less$/,
-                use:  [
+                use: [
                     'style-loader',
                     ...baseCssLoader,
                     {
-                        loader:  'less-loader',
+                        loader: 'less-loader',
                         options: {
-                            sourceMap:         false,
-                            modifyVars:        c.theme,
+                            sourceMap: false,
+                            modifyVars: c.theme,
                             javascriptEnabled: true,
                         },
                     },
@@ -104,14 +105,20 @@ module.exports = require('./webpack.config.base')({
             },
             {
                 test: /\.css$/,
-                use:  [...baseCssLoader],
+                use: [...baseCssLoader],
             },
             {
-                test:    /\.(jsx?)$/,
+                test: [/\.(tsx?)$/],
+                use: 'babel-loader',
                 include: sourceDir,
-                use:     [
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(jsx?)$/,
+                include: sourceDir,
+                use: [
                     {
-                        loader:  'babel-loader',
+                        loader: 'babel-loader',
                         options: {
                             cacheDirectory: path.join(__dirname, '.babel-cache', 'dev'),
                         },
@@ -119,5 +126,5 @@ module.exports = require('./webpack.config.base')({
                 ],
             },
         ],
-    },
+    }
 });
