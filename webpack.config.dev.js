@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const c = require('./const');
 const sourceDir = path.join(__dirname, '/src');
+console.log('ПУТИ', path.join(sourceDir, '/index.tsx'));
 const entryPath = path.join(sourceDir, '/index.tsx');
 
 const host = process.env.HOST || 'localhost';
