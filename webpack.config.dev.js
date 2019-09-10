@@ -24,7 +24,6 @@ const baseCssLoader = [
         loader:  'css-loader',
         options: {
             importLoaders: 1,
-            context:       sourceDir,
         },
     },
 ];
