@@ -38,7 +38,7 @@ module.exports = require('./webpack.config.base')({
         ],
     },
 
-    // devtool: 'source-map',
+    devtool: 'cheap-module-source-map',
     output: {
         filename: '[name].js',
         chunkFilename: '[name].js',
