@@ -10,10 +10,10 @@ module.exports = NODE_ENV => new webpack.DefinePlugin({
 
     APP_TOKEN: JSON.stringify(process.env.APP_TOKEN),
 
-    __DEV__:     NODE_ENV === 'dev',
+    __DEV__:     NODE_ENV === 'development',
     __VERSION__: JSON.stringify(require('./package.json').version),
 
-    'process.env.NODE_ENV': JSON.stringify(NODE_ENV === 'dev' ? 'dev' : 'production'),
+    'process.env.NODE_ENV': JSON.stringify(NODE_ENV === 'development' ? 'development' : 'production'),
 
     AVAILABLE_LANGS: process.env.AVAILABLE_LANGS,
 });
