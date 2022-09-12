@@ -1,48 +1,25 @@
-const path = require('path');
 module.exports = {
-    parser: '@typescript-eslint/parser', // Specifies the ESLint parser
-    plugins: ['@typescript-eslint', 'react'],
-    env: {
-        browser: true,
-        jest: true,
+  extends: ['airbnb', 'airbnb-typescript', 'prettier'],
+  ignorePatterns: ['.eslintrc.js'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2020,
+    project: './tsconfig.json',
+    ecmaFeatures: {
+      jsx: true, // Allows for the parsing of JSX
     },
-    extends: [
-        'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-        'prettier',
-    ],
-    parserOptions: {
-        project: path.resolve(__dirname, './tsconfig.json'),
-        tsconfigRootDir: __dirname,
-        ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-        sourceType: 'module', // Allows for the use of imports
-        ecmaFeatures: {
-            jsx: true, // Allows for the parsing of JSX
-        },
+  },
+  plugins: ['@typescript-eslint'],
+  settings: {
+    react: {
+      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
-    rules: {
-// Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-// e.g. "@typescript-eslint/explicit-function-return-type": "off",
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
-        "@typescript-eslint/no-explicit-any": ["off"],
-// These rules don't add much value, are better covered by TypeScript and good definition files
-        'react/no-direct-mutation-state': 'off',
-        'react/no-deprecated': 'off',
-        'react/no-string-refs': 'off',
-        'react/require-render-return': 'off',
-
-        'react/jsx-filename-extension': [
-            'warn',
-            {
-                extensions: ['.jsx', '.tsx'],
-            },
-        ], // also want to use with ".tsx"
-        'react/prop-types': 'off', // Is this incompatible with TS props type?
-    },
-    settings: {
-        react: {
-            version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-        },
-    },
+  },
+  // Fine tune rules
+  rules: {
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-var-requires': 0,
+  },
 };

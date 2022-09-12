@@ -1,31 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "esnext",
-    "target": "es6",
-    "lib": ["es6", "dom"],
-    "sourceMap": true,
-    "allowJs": true,
     "jsx": "react-jsx",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "ESNext",
     "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "baseUrl": "./",
-    "rootDir": "./",
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "paths": {
-      "@src/*": ["src/*"],
-      "@images/*": ["src/images/*"],
-      "@styles/*": ["src/styles/*"],
-      "@components/*": ["src/components/*"]
-    },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "importsNotUsedAsValues": "preserve",
-    "incremental": true
+    "outDir": "dist",
+    "target": "ESNext",
+    "sourceMap": true
   },
-  "include": ["src"],
-  "exclude": ["**/node_modules", "**/.*/"]
+  "include": ["src"]
 }
