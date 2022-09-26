@@ -3,6 +3,7 @@ const {resolve} = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: './index.tsx',
@@ -70,6 +71,7 @@ module.exports = {
         },
     },
     plugins: [
+        new CopyPlugin({patterns: [{from: "./config.js"}]}),
         new HtmlWebpackPlugin({template: 'index.html'}),
         new webpack.DefinePlugin({
             APP_VERSION: JSON.stringify(require('../../package.json').version),
