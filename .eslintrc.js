@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['airbnb', 'airbnb-typescript', 'prettier'],
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js','configs'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
@@ -18,8 +18,12 @@ module.exports = {
   },
   // Fine tune rules
   rules: {
+    "import/prefer-default-export": "off",
+    "no-param-reassign": [2, { "props": false }],
+    "react/button-has-type":'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    "react/jsx-props-no-spreading": "off",
     '@typescript-eslint/no-var-requires': 0,
   },
 };
