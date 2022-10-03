@@ -12,3 +12,4 @@ tests/**/*.jsx
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+.env

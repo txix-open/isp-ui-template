@@ -3,6 +3,7 @@ const {resolve} = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const CopyPlugin = require("copy-webpack-plugin");
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
     entry: './index.tsx',
@@ -39,6 +40,7 @@ module.exports = {
         new CopyPlugin({patterns: [{from: "./config.js"}]}),
         new HtmlWebpackPlugin({template: 'index.html'}),
         new webpack.DefinePlugin({
+            "process.env": JSON.stringify(process.env),
             APP_VERSION: JSON.stringify(require('../../package.json').version),
         }),
     ],
