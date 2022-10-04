@@ -19,10 +19,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchUsers.fulfilled.type]: (
-      state,
-      action: PayloadAction<IUser[]>,
-    ) => {
+    [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
       state.isLoading = false;
       state.error = '';
       state.users = action.payload;
