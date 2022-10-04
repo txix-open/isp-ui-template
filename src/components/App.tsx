@@ -1,10 +1,16 @@
-import '../assets/scss/App.scss';
+import { Route, Routes } from 'react-router-dom';
+
+import PostContainer from './PostContainer';
+import UserContainer from './UserContainer';
+import './app.scss';
 
 function App() {
   return (
     <div className="app">
-      <h1>Hello World!</h1>
-      <p>Foo to the barz</p>
+      <Routes>
+        <Route path="/" element={<PostContainer />} />
+        <Route path="/users" element={<UserContainer />} />
+      </Routes>
     </div>
   );
 }

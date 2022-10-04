@@ -6,10 +6,11 @@ const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 module.exports = merge(commonConfig, {
   mode: 'development',
   devServer: {
+    allowedHosts: 'all',
     hot: true,
     historyApiFallback: true,
     proxy: {
-      // type desired url '/api': ''
+      '/api': process.env.PROXY_URL,
     },
   },
   devtool: 'cheap-module-source-map',
