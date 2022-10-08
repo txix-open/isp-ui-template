@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
+import FormContainer from './FormContainer';
+import { defaultValues } from './FormContainer/defaultValue';
 import PostContainer from './PostContainer';
 import UserContainer from './UserContainer';
 import './app.scss';
@@ -9,6 +11,10 @@ function App() {
     <div className="app">
       <Routes>
         <Route path="/" element={<PostContainer />} />
+        <Route
+          path="/form"
+          element={<FormContainer defaultValues={defaultValues} />}
+        />
         <Route path="/users" element={<UserContainer />} />
       </Routes>
     </div>
