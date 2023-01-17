@@ -1,21 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
 
-import FormContainer from './FormContainer';
-import { defaultValues } from './FormContainer/defaultValue';
-import PostContainer from './PostContainer';
-import UserContainer from './UserContainer';
+// import {postService} from "../services/PostService";
+import HomePages from '../pages/HomePage/HomePages';
 import './app.scss';
 
 function App() {
+  // const [create, {}] = postService.useCreateMutation();
+  // const [update, {}] = postService.useUpdateMutation();
+  // const [remove, {}] = postService.useRemoveMutation();
+
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<PostContainer />} />
-        <Route
-          path="/form"
-          element={<FormContainer defaultValues={defaultValues} />}
-        />
-        <Route path="/users" element={<UserContainer />} />
+        <Route path="/" element={<HomePages />} />
       </Routes>
     </div>
   );

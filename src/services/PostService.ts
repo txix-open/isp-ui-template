@@ -1,8 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { customHeaders } from '../constants/headers';
-import { IPost } from '../types/IPost';
 import { baseQuery } from '../utils/apiUtils';
+
+type IPost = {
+  id: string;
+};
 
 export const postService = createApi({
   reducerPath: 'posts',
