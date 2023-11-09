@@ -17,6 +17,11 @@ export default defineConfig(({ mode }) => {
       outDir: 'build',
     },
     server: {
+      watch: {
+        usePolling: true,
+      },
+      host: true,
+      strictPort: true,
       port: 8000,
       proxy: {
         '/api': env.PROXY_URL,

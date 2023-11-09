@@ -1,0 +1,11 @@
+# docker-compose.yml
+version: '3'
+services:
+  vite-template:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
