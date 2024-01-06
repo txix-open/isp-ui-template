@@ -1,0 +1,38 @@
+{
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "quoteProps": "preserve",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "proseWrap": "never",
+  "htmlWhitespaceSensitivity": "strict",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": "*.tsx",
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ],
+  "importOrder": [
+    "^@core/(.*)$",
+    "^@ui/(.*)$",
+    "^@components/(.*)$",
+    "^@widgets/(.*)$",
+    "^@pages/(.*)$",
+    "^@utils/(.*)$",
+    "^@hooks/(.*)$",
+    "^@assets/(.*)$",
+    "^@api/(.*)$",
+    "^@store/(.*)$",
+    "^@routes/(.*)$",
+    "^[./]",
+    ".(scss|css)$"
+  ],
+  "importOrderSeparation": true
+}
