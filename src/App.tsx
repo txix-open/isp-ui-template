@@ -1,9 +1,10 @@
-import HomePages from '@pages/HomePage/HomePages.tsx';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'
 
-import './App.scss';
+import HomePages from '@pages/HomePage/HomePages.tsx'
 
-window.APP_VERSION = APP_VERSION;
+import './App.scss'
+
+window.APP_VERSION = APP_VERSION
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/" element={<HomePages />} />
       </Routes>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
