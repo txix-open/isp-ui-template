@@ -1,0 +1,16 @@
+.idea/
+dist/
+build/
+node_modules/
+src/**/*.jsx
+tests/__coverage__/
+tests/**/*.jsx
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.env
+.husky
