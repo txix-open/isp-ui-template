@@ -21,18 +21,22 @@
   ],
   "importOrder": [
     "^@core/(.*)$",
+    "^@assets/(.*)$",
+    "^@constants/(.*)$",
     "^@ui/(.*)$",
-    "^@components/(.*)$",
     "^@widgets/(.*)$",
+    "^@components/(.*)$",
+    "^@modules/(.*)$",
     "^@pages/(.*)$",
     "^@utils/(.*)$",
     "^@hooks/(.*)$",
-    "^@assets/(.*)$",
-    "^@api/(.*)$",
-    "^@store/(.*)$",
+    "^@services/(.*)$",
+    "^@stores/(.*)$",
     "^@routes/(.*)$",
+    "^@type/(.*)$",
+    "^./*.*.ts",
     "^[./]",
-    ".(scss|css)$"
+    "^./*.*.(scss|css)"
   ],
   "importOrderSeparation": true
 }

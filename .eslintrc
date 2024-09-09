@@ -13,7 +13,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript"
   ],
-  "ignorePatterns": ["node_modules", "build"],
+  "ignorePatterns": ["node_modules", "build", "generateVersionFile.cjs"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -29,11 +29,11 @@
     "import",
     "@typescript-eslint",
     "react-hooks",
-    "prettier",
-    "prettier-plugin-import-sort"
+    "prettier"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "import/no-named-as-default":"off",
+    "prettier/prettier": "off",
     "quotes": ["error", "single"],
     "react/jsx-filename-extension": [
       1,
@@ -41,6 +41,7 @@
         "extensions": [".js", ".jsx", ".tsx"]
       }
     ],
+    "react/jsx-one-expression-per-line": "off",
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "semi": ["error", "never"],
