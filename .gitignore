@@ -36,3 +36,4 @@ tests/**/*.jsx
 !.yarn/versions
 .pnp.*
 .env
+.husky
