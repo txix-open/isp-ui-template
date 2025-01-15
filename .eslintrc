@@ -32,6 +32,7 @@
     "prettier"
   ],
   "rules": {
+    "import/default": "off",
     "import/no-named-as-default":"off",
     "prettier/prettier": "off",
     "quotes": ["error", "single"],

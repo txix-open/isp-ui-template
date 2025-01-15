@@ -1,13 +1,28 @@
-FROM node:18.16.0-alpine3.16
+ARG NODE_VERSION=lts
 
-WORKDIR /app
+FROM node:${NODE_VERSION}-alpine as base
 
-COPY package.json .
+WORKDIR /usr/src/app
+FROM base as deps
 
-RUN yarn
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
+
+FROM deps as build
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci
 
 COPY . .
+RUN npm run build
 
-EXPOSE 8000
-
-CMD ["yarn", "start"]
+FROM nginx:alpine-slim as final
+RUN rm -f /etc/nginx/conf.d/default.conf
+# ЗАМЕНИТЬ НА конфиг проекта
+COPY cfg/template_cfg.conf /etc/nginx/conf.d/template_cfg.conf
+# ЗАМЕНИТЬ НА НАЗВАНИЕ ПРОЕКТА
+COPY --from=build /usr/src/app/build /opt/msp/project-name

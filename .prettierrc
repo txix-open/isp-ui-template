@@ -20,23 +20,20 @@
     }
   ],
   "importOrder": [
-    "^@core/(.*)$",
     "^@assets/(.*)$",
     "^@constants/(.*)$",
     "^@ui/(.*)$",
-    "^@widgets/(.*)$",
     "^@components/(.*)$",
-    "^@modules/(.*)$",
     "^@pages/(.*)$",
-    "^@utils/(.*)$",
-    "^@hooks/(.*)$",
+    "^@reducers/(.*)$",
+    "^@store/(.*)$",
     "^@services/(.*)$",
-    "^@stores/(.*)$",
-    "^@routes/(.*)$",
-    "^@type/(.*)$",
+    "^@hooks/(.*)$",
+    "^@utils/(.*)$",
+    "^@customTypes/(.*)$",
     "^./*.*.ts",
     "^[./]",
-    "^./*.*.(scss|css)"
+    ".(scss|css)$"
   ],
   "importOrderSeparation": true
 }

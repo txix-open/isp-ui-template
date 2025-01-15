@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite-plugin-svgr/client", "node"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -23,16 +23,19 @@
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@constants/*": ["src/constants/*"],
+      "@ui/*": ["src/ui/*"],
       "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@store/*": ["src/store/*"],
       "@services/*": ["src/services/*"],
-      "@stores/*": ["src/stores/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@customTypes/*": ["src/types/*"]
     },
     "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
