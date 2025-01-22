@@ -11,7 +11,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     envPrefix: 'DEV_',
-    optimizeDeps: { exclude: [] },
     define: {
       __APP_ENV__: env.APP_ENV,
       APP_VERSION: JSON.stringify(process.env.npm_package_version)
