@@ -2,7 +2,7 @@ export {}
 
 declare global {
   interface Window {
-    AppVersion: string
-    config: { [key: string]: any }
+    config: { [key: string]: unknown }
+    APP_VERSION: string
   }
 }

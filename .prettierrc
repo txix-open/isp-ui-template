@@ -9,6 +9,7 @@
   "bracketSameLine": false,
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "useTabs": false,
   "overrides": [
     {
@@ -19,17 +20,18 @@
     }
   ],
   "importOrder": [
-    "^@core/(.*)$",
+    "^@assets/(.*)$",
+    "^@constants/(.*)$",
     "^@ui/(.*)$",
     "^@components/(.*)$",
-    "^@widgets/(.*)$",
     "^@pages/(.*)$",
-    "^@utils/(.*)$",
-    "^@hooks/(.*)$",
-    "^@assets/(.*)$",
-    "^@api/(.*)$",
+    "^@reducers/(.*)$",
     "^@store/(.*)$",
-    "^@routes/(.*)$",
+    "^@services/(.*)$",
+    "^@hooks/(.*)$",
+    "^@utils/(.*)$",
+    "^@customTypes/(.*)$",
+    "^./*.*.ts",
     "^[./]",
     ".(scss|css)$"
   ],

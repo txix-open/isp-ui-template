@@ -13,4 +13,4 @@ tests/**/*.jsx
 !.yarn/versions
 .pnp.*
 .env
-.husky
+version.json

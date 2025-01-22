@@ -1,5 +1,4 @@
-node_modules
-.babelrc
-package.json
-package-lock.json
-.husky
+node_modules/
+tsconfig.json
+public/config.js
+vite.config.ts
