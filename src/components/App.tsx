@@ -8,11 +8,9 @@ window.APP_VERSION = APP_VERSION
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<HomePages />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePages />} />
+    </Routes>
   )
 }
 

@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import svgr from 'vite-plugin-svgr'
 
@@ -31,22 +30,14 @@ export default defineConfig(({ mode }) => {
         usePolling: true
       },
       host: true,
-      strictPort: true,
       port: 8000,
       proxy: {
         '/api': env.DEV_PROXY_URL
       }
     },
     resolve: {
-      alias: {
-        '@src': resolve(__dirname, './src')
-      },
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs']
     },
-    plugins: [
-      react(),
-      svgr(),
-      tsconfigPaths()
-    ]
+    plugins: [react(), svgr(), tsconfigPaths()]
   }
 })
