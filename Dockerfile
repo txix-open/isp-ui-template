@@ -26,3 +26,6 @@ RUN rm -f /etc/nginx/conf.d/default.conf
 COPY cfg/template_cfg.conf /etc/nginx/conf.d/template_cfg.conf
 # ЗАМЕНИТЬ НА НАЗВАНИЕ ПРОЕКТА
 COPY --from=build /usr/src/app/build /opt/msp/project-name
+# ЗАМЕНИТЬ НА НАЗВАНИЕ ПРОЕКТА
+COPY entrypoint.sh /opt/msp/project-name/entrypoint.sh
+ENTRYPOINT ["/opt/msp/project-name/entrypoint.sh"]
