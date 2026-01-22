@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     envPrefix: 'DEV_',
+    base: env.DEV_PUBLIC_PATH || '/',
     define: {
       __APP_ENV__: env.APP_ENV,
       APP_VERSION: JSON.stringify(process.env.npm_package_version)

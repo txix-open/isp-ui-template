@@ -5,8 +5,10 @@ import App from '@components/App.tsx'
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
+const baseUrl = import.meta.env.DEV_PUBLIC_PATH || '/'
+
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename={baseUrl}>
     <App />
   </BrowserRouter>
 )
