@@ -5,4 +5,14 @@ declare module '*.module.scss' {
   export default classes
 }
 
+interface ImportMetaEnv {
+  readonly DEV_PROXY_URL: string
+  readonly DEV_APP_TOKEN: string
+  readonly DEV_PUBLIC_PATH?: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+
 /// <reference types="vite/client" />
