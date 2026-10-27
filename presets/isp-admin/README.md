@@ -41,3 +41,7 @@ Run `npm run check`, `npm run build`, `npm run preview`. Checks include app/Vite
 AdminBase includes Monaco and other heavy features; large-chunk warnings remain visible. DOMPurify is overridden to 3.4.17 within major 3 because Monaco 0.55.1 pins an older version; reconsider when upstream updates.
 
 Dev/preview/nginx redirect absolute `/login` into `PUBLIC_PATH` for current AdminBase interceptors; preserve this behind other servers. Router 6 and Mermaid/KaTeX retain low/moderate audit findings in this dependency set. Router 7 requires library peer updates and compatibility checks. Do not force audit fixes that downgrade ISP packages or bypass peers.
+
+## OpenCode
+
+This preset includes `AGENTS.md`, `.opencode/skills/isp-add-section`, `.opencode/skills/isp-check-deployment` and a skills-only `opencode.json`. Include hidden files when copying it into an independent project; no template checkout is required. Open the new directory in OpenCode and request a skill by name. See [OpenCode guide](docs/opencode.md).

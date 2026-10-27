@@ -51,3 +51,7 @@ Run `npm run check`, `npm run build`, `npm run preview`. Check covers TypeScript
 Docker preserves the original filesystem, nginx config and shell startup; configure a real gateway in `cfg/template_cfg.conf`. See [deployment](docs/deployment.md).
 
 ISP UI requires Monaco peers and emits editor assets even though this starter does not initialize an editor; adding one requires worker setup. Large-chunk warnings remain visible. DOMPurify uses an override. Product APIs, SSO, WebSocket and domain behavior remain application work.
+
+## OpenCode
+
+This preset includes `AGENTS.md`, `.opencode/skills/isp-add-section`, `.opencode/skills/isp-check-deployment` and a skills-only `opencode.json`. Include hidden files when copying it into an independent project; no template checkout is required. Open the new directory in OpenCode and request a skill by name. See [OpenCode guide](docs/opencode.md).

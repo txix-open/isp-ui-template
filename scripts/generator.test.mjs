@@ -120,6 +120,33 @@ for (const preset of presets) {
     assert.match(await read('README.md'), /http:\/\/localhost:/)
     assert.equal((await read('.gitlab-ci.yml')).includes('presets/'), false)
     assert.match(await read('AGENTS.md'), /npm/)
+    assert.deepEqual(
+      (await readdir(path.join(result.directory, '.opencode'))).sort(),
+      ['skills']
+    )
+    assert.deepEqual(
+      (await readdir(path.join(result.directory, '.opencode/skills'))).sort(),
+      ['isp-add-section', 'isp-check-deployment']
+    )
+    assert.deepEqual(JSON.parse(await read('opencode.json')), {
+      $schema: 'https://opencode.ai/config.json',
+      skills: { paths: ['./.opencode/skills'] }
+    })
+    for (const skill of ['isp-add-section', 'isp-check-deployment']) {
+      const relative = `.opencode/skills/${skill}/SKILL.md`
+      assert.equal(
+        await read(relative),
+        await readFile(
+          path.join(
+            preset === 'minimal'
+              ? templateRoot
+              : path.join(templateRoot, 'presets', preset),
+            relative
+          ),
+          'utf8'
+        )
+      )
+    }
     const entries = await readdir(result.directory)
     for (const entry of [
       'node_modules',
@@ -223,6 +250,10 @@ test('rejects output inside source trees, also through a symlinked parent', asyn
   )
   await assert.rejects(
     createProject({ directory: 'source-link/new-app', cwd }),
+    /source trees/
+  )
+  await assert.rejects(
+    createProject({ directory: path.join(templateRoot, '.opencode/new-app') }),
     /source trees/
   )
 })

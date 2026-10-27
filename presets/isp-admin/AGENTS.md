@@ -20,3 +20,5 @@ Read README first. React/TypeScript/Vite with ISP UI and AdminBase.
 - Keep `.env`, tokens, `node_modules` and `build` out of commits. Commit, push and publish only when requested.
 
 Browser checks: login, CRUD, viewer access, forbidden direct URLs, errors and subdirectory deployment.
+
+This preset includes its own `.opencode/skills` and `opencode.json` for section/deployment workflows; see `docs/opencode.md`. Preserve these hidden files, `AGENTS.md` and docs when copying it independently. The creation skill belongs to the template.

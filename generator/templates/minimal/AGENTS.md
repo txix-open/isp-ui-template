@@ -15,3 +15,5 @@ React + TypeScript + Vite, Node.js 24. Read README first. Pages: `src/pages`; ro
 - Keep `.env`, tokens, `node_modules` and `build` out of commits. Commit, push and publish only when requested.
 
 Default title: `package.json` → `config.appName`; version: `package.json` → `version`.
+
+OpenCode project skills in `.opencode/skills` provide section and deployment workflows on demand. Generated applications include only application skills; the project-creation skill belongs to the template.

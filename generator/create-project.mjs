@@ -46,6 +46,7 @@ const protectedDirectories = [
   '.git',
   '.agents',
   '.codex',
+  '.opencode',
   'node_modules',
   'build'
 ]
@@ -222,6 +223,22 @@ export async function createProject(options) {
         path.join(directory, entry),
         entry === 'src'
       )
+    // Ship only maintained application skills, never local OpenCode settings.
+    for (const skill of ['isp-add-section', 'isp-check-deployment']) {
+      const relative = path.join('.opencode', 'skills', skill, 'SKILL.md')
+      await copyEntry(
+        path.join(source, relative),
+        path.join(directory, relative),
+        true
+      )
+    }
+    await writeFile(
+      path.join(directory, 'opencode.json'),
+      json({
+        $schema: 'https://opencode.ai/config.json',
+        skills: { paths: ['./.opencode/skills'] }
+      })
+    )
     if (preset !== 'minimal')
       await copyEntry(path.join(source, 'docs'), path.join(directory, 'docs'))
 
@@ -285,7 +302,7 @@ export async function createProject(options) {
       .trim()
     const command = preset === 'minimal' ? 'npm run dev' : 'npm run dev:demo'
     const port = { minimal: 8000, 'isp-app': 8002, 'isp-admin': 8001 }[preset]
-    const intro = `# ${escapeMarkdown(title)}\n\nPreset: \`${preset}\`. Package: \`${name}\`.\n\n\`\`\`sh\nnpm ci\n${command}\n\`\`\`\n\nOpen http://localhost:${port}${publicPath}. Settings: \`.env\`.\nDefault title: \`package.json → config.appName\`; supported build/runtime settings can override it.\n\nContainer: \`/opt/msp/${deployment.deploymentName}${publicPath}\`. Nginx: \`cfg/${deployment.nginxConfig}\`.\n\n## Project guide\n\n`
+    const intro = `# ${escapeMarkdown(title)}\n\nPreset: \`${preset}\`. Package: \`${name}\`.\n\n\`\`\`sh\nnpm ci\n${command}\n\`\`\`\n\nOpen http://localhost:${port}${publicPath}. Settings: \`.env\`.\nDefault title: \`package.json → config.appName\`; supported build/runtime settings can override it.\n\nContainer: \`/opt/msp/${deployment.deploymentName}${publicPath}\`. Nginx: \`cfg/${deployment.nginxConfig}\`.\n\nOpenCode: \`isp-add-section\` and \`isp-check-deployment\` are included in \`.opencode/skills\`. Open this directory in OpenCode and request a skill by name.\n\n## Project guide\n\n`
     await writeFile(path.join(directory, 'README.md'), intro + body + '\n')
     await mkdir(path.join(directory, 'docs'), { recursive: true })
     const deploymentGuide = await readFile(
