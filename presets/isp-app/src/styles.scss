@@ -1,0 +1,93 @@
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  background: #f4f6fa;
+}
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+.app-shell {
+  flex: 1;
+  min-height: 0;
+}
+.app-brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #245bcc;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.workspace {
+  min-width: 0;
+}
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 24px;
+  border-bottom: 1px solid #e6eaf0;
+}
+.app-content {
+  overflow: auto;
+  min-height: 0;
+}
+.app-footer {
+  padding: 12px 24px;
+  color: #6b778c;
+  background: #f4f6fa;
+}
+.page {
+  max-width: 1440px;
+  padding: 24px;
+  margin: 0 auto;
+  min-width: 0;
+}
+.page .ant-alert,
+.login-card .ant-alert {
+  margin-bottom: 16px;
+}
+.items-toolbar {
+  margin-bottom: 20px;
+}
+.status-filter {
+  width: 170px;
+}
+.home-section {
+  margin-top: 20px;
+}
+.login-page,
+.page-loader {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.login-card {
+  width: min(100%, 440px);
+}
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0 12px;
+  }
+  .profile-name,
+  .app-title {
+    display: none;
+  }
+  .page {
+    padding: 16px;
+  }
+  .app-footer {
+    padding: 12px;
+  }
+}

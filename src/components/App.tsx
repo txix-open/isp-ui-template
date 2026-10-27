@@ -1,17 +1,21 @@
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 
-import HomePages from '@pages/HomePage/HomePages.tsx'
-
+import HomePage from '../pages/HomePage/HomePage'
 import './App.scss'
 
-window.APP_VERSION = APP_VERSION
-
-function App() {
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePages />} />
+      <Route path="/" element={<HomePage />} />
+      <Route
+        path="*"
+        element={
+          <main>
+            <h1>Страница не найдена</h1>
+            <Link to="/">На главную</Link>
+          </main>
+        }
+      />
     </Routes>
   )
 }
-
-export default App

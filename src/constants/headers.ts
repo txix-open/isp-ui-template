@@ -1,5 +1,3 @@
-import { getConfigProperty } from '../utils/configUtils'
+import { appConfig } from '../utils/configUtils'
 
-export const customHeaders = {
-  'X-APPLICATION-TOKEN': getConfigProperty('APP_TOKEN', process.env.APP_TOKEN)
-}
+export const customHeaders = { 'X-APPLICATION-TOKEN': appConfig.token }
