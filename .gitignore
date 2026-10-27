@@ -14,3 +14,6 @@ tests/**/*.jsx
 .pnp.*
 .env
 version.json
+
+.env.*.local
+coverage/

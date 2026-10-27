@@ -1,14 +1,16 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from '@components/App.tsx'
+import App from './components/App'
 
-const container = document.getElementById('root') as HTMLElement
-const root = createRoot(container)
-const baseUrl = import.meta.env.DEV_PUBLIC_PATH || '/'
+import { appConfig } from './utils/configUtils'
 
-root.render(
-  <BrowserRouter basename={baseUrl}>
+window.AppVersion = APP_VERSION
+document.title = appConfig.name
+const container = document.getElementById('root')
+if (!container) throw new Error('Не найден элемент #root')
+createRoot(container).render(
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <App />
   </BrowserRouter>
 )

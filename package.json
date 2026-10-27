@@ -1,25 +1,27 @@
 {
   "name": "isp-ui-template",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "start": "vite",
-    "build": "vite build && node generateVersionFile.cjs",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json",
+    "lint": "eslint src bin generator scripts --max-warnings 0",
+    "format": "prettier --write src scripts bin generator vite.config.ts",
+    "format:check": "prettier --check src scripts bin generator vite.config.ts",
+    "test": "node --test scripts/*.test.mjs",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "build": "npm run typecheck && vite build && node generateVersionFile.cjs",
     "preview": "vite preview",
-    "fix:prettier": "prettier --write \"src/**/*.{ts,tsx, js}\"",
-    "prepare": "husky || true"
+    "prepare": "husky || true",
+    "create": "node bin/create-isp-ui.mjs",
+    "test:docker": "node generator/verify-deployment.mjs"
   },
   "dependencies": {
-    "@hookform/error-message": "^2.0.1",
-    "@reduxjs/toolkit": "^2.11.2",
-    "axios": "^1.13.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-hook-form": "^7.71.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.12.0"
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
@@ -34,8 +36,8 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "globals": "^17.0.0",
     "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
-    "prettier-plugin-import-sort": "^0.0.7",
     "sass": "^1.97.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
@@ -48,5 +50,11 @@
       "npx prettier --write",
       "npx eslint --fix"
     ]
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "config": {
+    "appName": "ISP UI"
   }
 }

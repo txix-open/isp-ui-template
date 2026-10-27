@@ -1,18 +1,8 @@
+/// <reference types="vite/client" />
 declare const APP_VERSION: string
-
-declare module '*.module.scss' {
-  const classes: { [key: string]: string }
-  export default classes
-}
+declare const APP_NAME: string
 
 interface ImportMetaEnv {
-  readonly DEV_PROXY_URL: string
-  readonly DEV_APP_TOKEN: string
-  readonly DEV_PUBLIC_PATH?: string
+  readonly VITE_APP_NAME?: string
+  readonly VITE_APP_TOKEN?: string
 }
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-
-/// <reference types="vite/client" />

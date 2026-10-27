@@ -1,0 +1,26 @@
+.items-page {
+  padding: 24px;
+  min-width: 0;
+}
+.items-toolbar {
+  margin-bottom: 20px;
+}
+.items-page .ant-alert {
+  margin-bottom: 16px;
+}
+.demo-banner {
+  position: relative;
+  z-index: 1001;
+}
+body:has(.demo-banner) .ant-app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+body:has(.demo-banner) .ant-app > section {
+  flex: 1;
+  min-height: 0;
+}
+body:has(.demo-banner) .ant-app > section > .layout {
+  height: 100%;
+}

@@ -1,0 +1,28 @@
+image: node:24-alpine
+
+stages: [verify]
+
+minimal:
+  stage: verify
+  script:
+    - npm ci
+    - npm run check
+    - npm run build
+
+isp-admin:
+  stage: verify
+  variables:
+    NODE_OPTIONS: --max-old-space-size=4096
+  script:
+    - cd presets/isp-admin
+    - npm ci
+    - npm run check
+    - npm run build
+
+isp-app:
+  stage: verify
+  script:
+    - cd presets/isp-app
+    - npm ci
+    - npm run check
+    - npm run build

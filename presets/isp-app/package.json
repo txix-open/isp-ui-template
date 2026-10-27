@@ -1,0 +1,59 @@
+{
+  "name": "isp-app-starter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "dev:demo": "vite --mode demo",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json",
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier --write src vite.config.ts demo scripts",
+    "format:check": "prettier --check src vite.config.ts demo scripts",
+    "test": "node --test scripts/*.test.mjs",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "build": "npm run typecheck && vite build && node generateVersionFile.cjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.3.4",
+    "@reduxjs/toolkit": "^2.13.0",
+    "antd": "^6.6.8",
+    "dayjs": "^1.11.23",
+    "isp-ui-kit": "^2.3.4",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-hook-form": "^7.91.0",
+    "react-redux": "^9.3.0",
+    "@monaco-editor/react": "^4.7.0",
+    "monaco-editor": "^0.55.1",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "vite": "^7.3.1",
+    "typescript": "^5.9.3",
+    "sass": "^1.97.3",
+    "eslint": "^9.39.2",
+    "@eslint/js": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^17.0.0",
+    "typescript-eslint": "^8.53.1",
+    "prettier": "^3.8.1"
+  },
+  "overrides": {
+    "dompurify": "^3.4.17"
+  },
+  "config": {
+    "appName": "ISP App"
+  }
+}
