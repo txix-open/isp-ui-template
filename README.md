@@ -1,57 +1,239 @@
 # ISP UI Template
 
-Independent React + TypeScript + Vite starters for new projects. Node.js 24, npm.
+Шаблон для создания приложений на React, TypeScript и Vite. Можно начать с небольшой страницы, приложения со своим интерфейсом на ISP UI или готовой административной оболочки AdminBase.
 
-| Preset | Use |
+Новый проект создаётся в отдельной папке со своими зависимостями, настройками, Dockerfile и инструкциями для агента. После создания ему не нужны ни этот репозиторий, ни соседние проекты. Go и Next.js в состав шаблона не входят.
+
+## 1. Что установить
+
+| Что | Для чего |
 | --- | --- |
-| `minimal` | Small SPA without ISP libraries or authentication; repository root |
-| `isp-app` | Custom ISP layout, session, permissions and RTK Query; EKG/KKD-style apps |
-| `isp-admin` | AdminBase shell/auth/profile with custom sections and CRUD |
+| [Node.js 24 с npm](https://nodejs.org/en/download) | Создание проекта, установка зависимостей и локальная разработка. На странице загрузки выберите ветку **24.x** |
+| [Git](https://git-scm.com/downloads/) | Получение шаблона и работа с репозиторием проекта |
+| Редактор или агент с доступом к файлам и терминалу | Работа с кодом. Например, ваш привычный редактор с агентом |
+| Docker с запущенным daemon | Только для сборки контейнера и проверки деплоя; для обычного локального запуска не нужен |
 
-Go and Next.js are outside this template's scope.
-
-## Create a project
+Установите Node.js и Git для своей ОС по ссылкам выше, затем откройте новый терминал и проверьте:
 
 ```sh
-npm run create -- ../orders-ui --preset isp-app --title "Orders" --yes
+node --version
+npm --version
+git --version
+```
+
+Версия Node.js должна начинаться с `v24.`. Если у вас уже установлен `nvm`, нужную версию можно выбрать командами `nvm install 24` и `nvm use 24`.
+
+Для получения шаблона нужен доступ к GitLab и настроенный SSH-ключ. Откройте терминал в папке, где храните проекты:
+
+```sh
+git clone git@gitlab.txix.ru:isp/isp-ui-template.git
+cd isp-ui-template
+npm ci
+```
+
+Если шаблон уже скачан, перейдите в его папку и выполните `npm ci`. Глобально устанавливать генератор через npm не нужно.
+
+## 2. Какой вариант выбрать
+
+Вариант старта называется **пресетом** и задаётся параметром `--preset`.
+
+| Пресет | Когда выбирать | Что уже есть |
+| --- | --- | --- |
+| `minimal` | Небольшой инструмент, публичная страница или приложение без готовой админки | React, маршруты, стили и настройки; без обязательных ISP-библиотек, Redux и авторизации |
+| `isp-app` | Приложение типа ЕКГ или ККД со своей оболочкой | ISP UI, Ant Design, меню, сессия, права, API и пример списка с формой |
+| `isp-admin` | Админка на общей оболочке ISP, как `isp-admin-ui` | AdminBase, вход, профиль, меню, общий store и пример своего раздела с правами |
+
+Если пресет не указан, выбирается `minimal`. Для большинства приложений со своим интерфейсом на ISP UI начните с `isp-app`.
+
+## 3. Создание вручную
+
+Выполните команды из папки шаблона. Пример создаёт приложение «Заказы» рядом с шаблоном:
+
+```sh
+npm run create -- ../orders-ui --preset isp-app --title "Заказы" --yes
 cd ../orders-ui
 npm ci
 npm run dev:demo
 ```
 
-Minimal uses `npm run dev`. Demo credentials: `editor@example.test`, `viewer@example.test` or `blocked@example.test`, password `demo`. Demo is explicit, development-only and uses in-memory data. Real backend contracts need adaptation.
+Откройте **http://localhost:8002/**. Войти можно одной из учётных записей:
 
-**Default `PUBLIC_PATH` is `/`. Change it only when the user explicitly specifies a deployment path. Never infer it from the directory, package name, application title, or routes.**
+| Email | Пароль | Доступ |
+| --- | --- | --- |
+| `editor@example.test` | `demo` | Просмотр, создание, изменение и удаление записей |
+| `viewer@example.test` | `demo` | Только просмотр |
+| `blocked@example.test` | `demo` | Без доступа к разделу записей |
 
-Example agent request:
+Для других пресетов команды создания и запуска такие:
 
-> Create ../orders-ui from this template using isp-app, title Orders. Add an orders list and form. Use the default deployment path. Confirm the backend contract before connecting real APIs.
+| Пресет | Создать из папки шаблона | Запустить из папки нового проекта | Адрес |
+| --- | --- | --- | --- |
+| `minimal` | `npm run create -- ../small-ui --preset minimal --yes` | `npm ci`, затем `npm run dev` | http://localhost:8000/ |
+| `isp-app` | `npm run create -- ../app-ui --preset isp-app --yes` | `npm ci`, затем `npm run dev:demo` | http://localhost:8002/ |
+| `isp-admin` | `npm run create -- ../admin-ui --preset isp-admin --yes` | `npm ci`, затем `npm run dev:demo` | http://localhost:8001/ |
 
-For an explicit prefix, add `--public-path /orders/`. Optional `--api-upstream http://gateway:9003` enables the production nginx proxy. `PROXY_URL` configures dev proxy only. See [generator](docs/generator.md).
+`../orders-ui` — новая папка рядом с шаблоном. Она не должна существовать: генератор откажется перезаписывать даже пустую папку. Имя пакета берётся из имени папки; если оно отличается или содержит пробелы, передайте, например, `--name orders-ui`.
 
-## Configuration
+`--title` задаёт название приложения, `--yes` отключает вопросы. Можно добавить `--install`, чтобы генератор сам выполнил `npm ci` в новом проекте; тогда отдельная установка там не нужна.
 
-| Setting | Purpose |
+После запуска терминал остаётся занят dev-сервером. Остановить его можно сочетанием `Ctrl+C`.
+
+**Демо работает только в разработке.** Данные хранятся в памяти и сбрасываются после перезапуска. Для рабочего приложения нужно подключить настоящий backend; при production-сборке демосервер не включается.
+
+## 4. Создание через агента
+
+Подойдёт агент, который умеет читать и изменять локальные файлы и выполнять команды в терминале. Сначала установите Node.js 24 и Git, получите шаблон по шагу 1 и откройте **папку шаблона** в редакторе с агентом. Если шаблон уже открыт, повторно скачивать его не нужно.
+
+Отправьте агенту готовый запрос:
+
+```text
+Прочитай AGENTS.md в открытом isp-ui-template.
+Создай рядом новый проект ../orders-ui через генератор этого шаблона.
+Пресет: isp-app. Название приложения: «Заказы».
+PUBLIC_PATH явно не задан — оставь /, не подставляй имя папки.
+Установи зависимости, выполни npm run check и npm run build в новом проекте.
+Запусти деморежим и сообщи адрес, папку проекта и результаты проверок.
+Backend пока не подключаем.
+```
+
+Агент должен использовать генератор, создать отдельную папку, установить зависимости и проверить полученное приложение. Он не должен переносить в проект зависимости, локальные `.env` или историю Git шаблона. Инструкции `AGENTS.md` написаны на английском; задачу агенту можно формулировать по-русски.
+
+Для других вариантов достаточно заменить строку с пресетом:
+
+- Небольшая SPA: «Пресет minimal. Запусти npm run dev вместо деморежима».
+- Общая админка ISP: «Пресет isp-admin. Используй AdminBase и его авторизацию».
+- Нужен конкретный путь размещения: «Приложение будет доступно по /orders/. Передай --public-path /orders/».
+
+После создания откройте **папку нового проекта** для дальнейшей работы агента. Например, следующая задача:
+
+```text
+Прочитай AGENTS.md этого проекта.
+Добавь раздел «Заказы»: таблицу с поиском и пагинацией, форму создания
+и редактирования, подтверждение удаления, права просмотра и изменения.
+Сначала используй явный деморежим. Настоящий API подключим отдельно
+по его документации; не придумывай рабочие endpoints и авторизацию.
+После изменений выполни проверки и сборку, проверь сценарий в браузере,
+если он доступен, и перечисли выполненные проверки.
+```
+
+Для подключения настоящего сервиса передайте агенту документацию API или файлы контракта, адрес backend и правила авторизации. Само сходство с ЕКГ или ККД не означает совместимость с их API.
+
+### Skills для OpenCode
+
+Если вы используете OpenCode, в шаблоне уже есть проектные skills в `.opencode/skills/` и минимальный `opencode.json`, который указывает на эту папку. Отдельно устанавливать их через npm или копировать в глобальные настройки не нужно: откройте папку шаблона в OpenCode.
+
+| Skill | Для чего |
 | --- | --- |
-| `PUBLIC_PATH=/` | Dev/build/preview base and Docker build arg |
-| `PROXY_URL` | Dev backend; read only by Vite |
-| `VITE_APP_NAME`, `VITE_APP_TOKEN`, `VITE_CLIENT_NAME` | Public build settings supported by the selected preset |
-| `window.config` | Public runtime settings generated by the container entrypoint |
-| `import.meta.env.BASE_URL` | Vite's computed base; use in browser code |
+| `isp-create-project` | Создать приложение через генератор шаблона |
+| `isp-add-section` | Добавить страницу, CRUD, форму, API или права в существующем приложении |
+| `isp-check-deployment` | Проверить Docker, nginx, базовый путь и `config.js` |
 
-Default title: `package.json` → `config.appName`. Runtime settings override build defaults where supported. Never place server secrets in browser configuration.
+Можно написать обычным сообщением:
 
-## Develop and verify
+```text
+Используй skill isp-create-project. Создай ../orders-ui на isp-app,
+название «Заказы». Путь размещения не задан — оставь /.
+Установи зависимости, проверь и запусти демо.
+```
+
+После создания в приложении останутся skills `isp-add-section` и `isp-check-deployment`. Откройте его папку в OpenCode и напишите, например: «Используй isp-add-section и добавь раздел заказов». Skill создания остаётся только в шаблоне. Внутри обоих пресетов тоже лежат свои `.opencode/skills`, `opencode.json`, `AGENTS.md` и документация: при переносе пресета целиком сохраняйте скрытые файлы.
+
+Это инструкции, которые агент загружает по необходимости, а не команды терминала или гарантированные slash-команды. Выбор модели и доступ к провайдеру настройте в своём OpenCode отдельно. Если skill не виден, проверьте, что открыта нужная папка и ваши настройки разрешают его использование. Подробности: [OpenCode skills](docs/opencode.md).
+
+## 5. Базовый путь: по умолчанию `/`
+
+Без `--public-path` приложение размещается в корне сайта: например, `https://example.test/`. Имя папки `orders-ui` **не превращается** в `/orders-ui/`.
+
+Если нужен именно адрес `https://example.test/orders/`, укажите путь при создании:
 
 ```sh
-npm ci
+npm run create -- ../orders-ui --preset isp-app --title "Заказы" --public-path /orders/ --yes
+```
+
+Это альтернативная команда создания; используйте её вместо команды из шага 3, пока папки ещё нет. Генератор запишет путь в `.env`, `.env.example` и значения Docker build args. Адрес локального запуска будет `http://localhost:8002/orders/`.
+
+У уже созданного проекта путь для локальной разработки меняется через `PUBLIC_PATH` в `.env`. При изменении пути Docker-сборки передайте такой же `--build-arg PUBLIC_PATH=/orders/`. Изменения одной переменной в запущенном контейнере недостаточно: ресурсы собираются под выбранный путь.
+
+## 6. Подключение настоящего backend
+
+Генератор уже создаёт `.env` в новом проекте. Для обычной разработки укажите в нём адрес своего backend и публичный токен приложения:
+
+```dotenv
+PROXY_URL=http://localhost:9000
+PUBLIC_PATH=/
+VITE_APP_TOKEN=your-public-application-token
+```
+
+Адрес и токен в примере нужно заменить значениями вашего окружения. Для проекта в подкаталоге сохраните его `PUBLIC_PATH`. После изменения `.env` перезапустите dev-сервер:
+
+```sh
 npm run dev
+```
+
+Эта команда запускает обычный режим с настоящим API. `npm run dev:demo` запускает учебный backend и не проксирует запросы в рабочие сервисы. Учебные запросы `/api/example/...` нужно заменить контрактом своего сервиса. Для AdminBase также нужны настоящие ISP API входа, профиля и оформления.
+
+| Настройка | Где используется |
+| --- | --- |
+| `PUBLIC_PATH` | Базовый путь разработки и сборки; по умолчанию `/` |
+| `PROXY_URL` | Backend для локального dev proxy; не настраивает production nginx |
+| `VITE_APP_TOKEN` | Публичный токен приложения для локальной разработки и сборки |
+| `VITE_APP_NAME` | Необязательное переопределение названия в `minimal` и `isp-app` |
+| `VITE_CLIENT_NAME` | Публичная настройка клиента в `isp-admin` |
+| `package.json` → `config.appName` | Название, заданное генератором; оформление рабочего AdminBase определяется backend |
+| `window.config` | Публичные настройки времени запуска; в Docker записываются в `config.js` при старте |
+
+`.env` не добавляется в Git. `VITE_*` и `config.js` доступны браузеру: серверные пароли и секреты туда не помещают.
+
+## 7. Проверки и сборка
+
+Выполняйте из папки созданного приложения:
+
+```sh
 npm run check
 npm run build
 ```
 
-`check` runs TypeScript, ESLint, Prettier and Node tests. Build writes `build/version.json`; browser version is `window.AppVersion`. Verify UI behavior separately. Presets have independent dependencies and commands; read their READMEs.
+`check` проверяет типы, lint, форматирование и тесты. `build` создаёт папку `build` и файл версии `build/version.json`. Для просмотра собранного интерфейса используйте `npm run preview` и адрес, который напечатает терминал. Учебный backend в preview не работает.
 
-Docker retains `/opt/msp/<project><PUBLIC_PATH>`, a separate nginx config and a shell entrypoint that writes `window.config` before starting nginx. Final image needs no Node.js. Run `npm run test:docker` to verify the template's container matrix.
+Для Docker-проверок самого шаблона выполните `npm run test:docker` **в папке шаблона** при запущенном Docker. Команда собирает все три варианта в корне и подкаталогах, проверяет nginx, API proxy и runtime config. В созданных приложениях этой общей команды нет.
 
-Read [development recipes](docs/development.md), [deployment contract](docs/deployment.md) or the optional [project survey](docs/project-landscape.md). Agent instructions live in `AGENTS.md`.
+## 8. Запуск в Docker
+
+Из папки созданного проекта:
+
+```sh
+docker build -t orders-ui .
+docker run --rm -p 8001:8001 -e APP_TOKEN=your-public-application-token -e CLIENT_NAME=orders-ui orders-ui
+```
+
+Откройте **http://localhost:8001/** или добавьте выбранный при создании базовый путь, например `/orders/`. Порт контейнера всегда `8001`, независимо от порта dev-сервера. Если порт компьютера занят, используйте, например, `-p 8080:8001` и откройте `http://localhost:8080/`.
+
+Для рабочего API нужно настроить nginx proxy на доступный контейнеру gateway. Можно передать `--api-upstream http://isp-gate-service:9003` **при создании проекта** или включить `proxy_pass` вручную в `cfg/orders-ui.conf`. Это пример адреса: замените его адресом вашего gateway и подключите контейнер к соответствующей сети. Изначально `proxy_pass` закомментирован.
+
+При старте shell-entrypoint создаёт `config.js` из Docker env и запускает nginx. Поддерживаются `APP_TOKEN`, `CLIENT_NAME`, `ENABLE_PASSWORD_LOGIN`, `ENABLE_OAUTH_LOGIN`, `OAUTH_LOGIN_BUTTON_TEXT` и необязательный `APP_NAME`. Флаги передавайте как `true` или `false`. Для изменения этих значений создайте новый контейнер с нужными env; пересборка для них не требуется.
+
+`PUBLIC_PATH` уже сохранён в образе из build arg: при запуске его можно не передавать. Если платформа передаёт его явно, он должен совпадать с путём сборки. Файлы приложения остаются в `/opt/msp/<имя-проекта><PUBLIC_PATH>`, финальный образ запускает nginx без Node.js.
+
+Подробный контракт и примеры: [деплой](docs/deployment.md).
+
+## Если что-то не запускается
+
+| Сообщение или ситуация | Что проверить |
+| --- | --- |
+| `node` или `npm` не найдены | Установите Node.js 24 с npm и откройте новый терминал |
+| Неподходящая версия Node.js | Выполните `node --version`; для установленного nvm — `nvm use 24` |
+| `Permission denied (publickey)` при клонировании | Доступ к GitLab и SSH-ключ; альтернативный HTTPS-адрес можно взять в интерфейсе GitLab |
+| `Directory already exists` | Выберите новую папку; генератор не перезаписывает существующие |
+| Установка зависимостей не завершилась | Проверьте доступ к npm registry и повторите `npm ci` в созданном проекте; его файлы сохраняются |
+| Порт занят | Остановите предыдущий dev-сервер либо запустите, например, `npm run dev:demo -- --port 8003` |
+| Ошибки API или входа | Для знакомства используйте деморежим; для рабочего режима проверьте API, адрес, токен и права |
+| Интерфейс не работает в подкаталоге | Сверьте `PUBLIC_PATH`, путь Docker-сборки и открываемый адрес |
+| Docker не подключается к daemon | Запустите установленный Docker и проверьте `docker info` |
+
+## Где читать дальше
+
+- [История изменений](CHANGELOG.md) — выпуски и несовместимые изменения на русском.
+- [Параметры генератора](docs/generator.md) — полный список флагов на английском.
+- [Разработка](docs/development.md) и [деплой](docs/deployment.md) — технические инструкции на английском.
+- [AGENTS.md](AGENTS.md) — короткие правила для агентов; в новом проекте создаётся свой файл.
+- [Правила релизов](docs/releasing.md) — SemVer, формат коммитов и changelog.

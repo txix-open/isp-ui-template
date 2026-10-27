@@ -19,3 +19,7 @@ Create projects with `npm run create -- <new-directory> --preset <preset> --yes`
 Minimal needs no Redux, Ant Design or authentication. Add dependencies only for actual requirements. Presets are independent; synchronize shared infrastructure copies and verify every affected preset. Browser version: `window.AppVersion`; default title: `package.json` → `config.appName`.
 
 Recipes: `docs/development.md`; CLI: `docs/generator.md`. For deployment changes run `npm run test:docker` when Docker is available; report any unavailable checks.
+
+Write changelog entries in Russian using the KKD-style `## X.Y.Z` and nested category bullets from `docs/releasing.md`; keep the user-facing root README in Russian and agent instructions in English. Use Conventional Commits; follow `docs/releasing.md` for version/changelog updates. Generated app versions are independent of the template release.
+
+OpenCode project skills in `.opencode/skills` provide section and deployment workflows on demand. Generated applications include only application skills; the project-creation skill belongs to the template.
